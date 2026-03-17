@@ -4,104 +4,238 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>The Upper Room Invitation</title>
-    <link href="https://fonts.googleapis.com" rel="stylesheet">
+    <!-- FIXED: Complete Google Fonts import with actual font families -->
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
     <style>
         :root {
             --bg-dark: #000000;
             --white: #ffffff;
-            --union-glow: #d4bf79; 
+            --union-glow: #d4bf79;
             --card-bg: rgba(255, 255, 255, 0.04);
         }
 
+        /* FIXED: Keep overflow: hidden on body for the slide transition to work,
+           but use min-height instead of height so content can grow */
         body, html {
-            margin: 0; padding: 0; height: 100vh;
+            margin: 0;
+            padding: 0;
+            min-height: 100vh;
             font-family: 'Inter', sans-serif;
             background-color: var(--bg-dark);
             color: var(--white);
-            overflow: hidden;
+            overflow: hidden; /* Kept intentionally — required for the slide-deck transition */
         }
 
         /* --- NAVIGATION --- */
         .page {
-            position: absolute; top: 0; left: 0; width: 100%; height: 100vh;
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            /* FIXED: min-height instead of height so content isn't clipped */
+            min-height: 100vh;
             transition: transform 0.9s cubic-bezier(0.7, 0, 0.3, 1);
-            display: flex; flex-direction: column; align-items: center; justify-content: center;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
             box-sizing: border-box;
+            padding: 40px 20px;
         }
 
-        #homescreen { z-index: 10; background: #000; }
-        
-        #main-page { 
-            z-index: 5; transform: translateY(100%); 
-            background: linear-gradient(to bottom, 
-                var(--white) 0%, 
-                #f0f0f0 15%, 
-                #777 48%, 
-                #222 52%, 
-                #0a0a0a 85%, 
+        #homescreen {
+            z-index: 10;
+            background: #000;
+        }
+
+        #main-page {
+            z-index: 5;
+            transform: translateY(100%);
+            background: linear-gradient(to bottom,
+                var(--white) 0%,
+                #f0f0f0 15%,
+                #777 48%,
+                #222 52%,
+                #0a0a0a 85%,
                 var(--bg-dark) 100%);
         }
 
         .active-main #homescreen { transform: translateY(-100%); }
-        .active-main #main-page { transform: translateY(0); }
+        .active-main #main-page  { transform: translateY(0); }
 
         /* --- PULSING CENTER BURST --- */
         .intersection-glow {
-            position: absolute; top: 50%; left: 50%; 
-            width: 140%; height: 250px;
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 140%;
+            height: 250px;
             transform: translate(-50%, -50%);
             background: radial-gradient(circle, rgba(212, 191, 121, 0.6) 0%, rgba(212, 191, 121, 0.2) 50%, rgba(0,0,0,0) 85%);
-            filter: blur(60px); z-index: 1; pointer-events: none;
+            filter: blur(60px);
+            z-index: 1;
+            pointer-events: none;
             animation: pulseBurst 4s infinite ease-in-out;
         }
 
         @keyframes pulseBurst {
             0%, 100% { opacity: 0.5; transform: translate(-50%, -50%) scale(1); }
-            50% { opacity: 1; transform: translate(-50%, -50%) scale(1.1); }
+            50%       { opacity: 1;   transform: translate(-50%, -50%) scale(1.1); }
         }
 
         /* --- UI TEXT --- */
-        h1 { font-family: 'Playfair Display', serif; font-size: 5.5rem; letter-spacing: 6px; margin-bottom: 2rem; text-align: center; color: var(--white); }
+        h1 {
+            font-family: 'Playfair Display', serif;
+            font-size: 5.5rem;
+            letter-spacing: 6px;
+            margin-bottom: 2rem;
+            text-align: center;
+            color: var(--white);
+        }
 
-        .def-section { max-width: 1200px; text-align: center; z-index: 2; padding: 0 40px; display: flex; flex-direction: column; align-items: center; }
-        .top-def { color: #000; }
+        .def-section {
+            max-width: 1200px;
+            text-align: center;
+            z-index: 2;
+            padding: 0 40px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .top-def  { color: #000; }
         .bottom-def { color: #fff; }
 
-        .greek-word { font-family: 'Playfair Display'; font-size: 3.5rem; color: var(--union-glow); margin-bottom: 15px; }
-        .definition-text { font-size: 1.8rem; line-height: 1.5; font-weight: 300; margin: 0; }
+        .greek-word {
+            font-family: 'Playfair Display', serif;
+            font-size: 3.5rem;
+            color: var(--union-glow);
+            margin-bottom: 15px;
+        }
+
+        .definition-text {
+            font-size: 1.8rem;
+            line-height: 1.5;
+            font-weight: 300;
+            margin: 0;
+        }
 
         /* --- TILES --- */
-        .grid-container { display: grid; grid-template-columns: repeat(3, 1fr); grid-gap: 30px; margin: 40px 0; z-index: 2; perspective: 1200px; }
+        .grid-container {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            grid-gap: 30px;
+            margin: 40px 0;
+            z-index: 2;
+            perspective: 1200px;
+        }
 
         .tile {
-            width: 300px; height: 160px;
+            /* FIXED: width: 100% with max-width instead of fixed 300px */
+            width: 100%;
+            max-width: 300px;
+            height: 160px;
             background: rgba(0, 0, 0, 0.8);
             border: 1px solid rgba(212, 191, 121, 0.4);
             border-radius: 12px;
-            display: flex; flex-direction: column; justify-content: center; align-items: center;
-            text-align: center; cursor: pointer; padding: 20px;
-            transition: all 0.5s cubic-bezier(0.2, 1, 0.3, 1);
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            cursor: pointer;
+            padding: 20px;
+            box-sizing: border-box;
+            /* FIXED: More reliable cross-browser hover — no translateZ which is inconsistent in Firefox */
+            transition: transform 0.3s ease, border-color 0.3s ease, background 0.3s ease;
         }
 
-        .tile:hover { transform: translateZ(70px) scale(1.05); border-color: var(--white); background: rgba(255, 255, 255, 0.1); }
-        .tile h3 { font-family: 'Playfair Display'; font-size: 2.3rem; margin: 0; color: var(--union-glow); }
-        .tile p { font-size: 1rem; letter-spacing: 2.5px; text-transform: uppercase; margin-top: 15px; font-weight: 600; color: #fff; }
+        .tile:hover {
+            transform: translateY(-8px) scale(1.05);
+            border-color: var(--white);
+            background: rgba(255, 255, 255, 0.1);
+        }
 
-        /* --- PAGE 3: SUB-PAGE --- */
-        .sub-page { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: #000; z-index: 1000; padding: 60px; box-sizing: border-box; overflow-y: auto; }
-        .back-btn { color: var(--white); opacity: 0.7; cursor: pointer; text-transform: uppercase; font-size: 1.1rem; margin-bottom: 40px; display: inline-block; letter-spacing: 3px; font-weight: 600; }
+        .tile h3 {
+            font-family: 'Playfair Display', serif;
+            font-size: 2.3rem;
+            margin: 0;
+            color: var(--union-glow);
+        }
+
+        .tile p {
+            font-size: 1rem;
+            letter-spacing: 2.5px;
+            text-transform: uppercase;
+            margin-top: 15px;
+            font-weight: 600;
+            color: #fff;
+        }
+
+        /* --- DETAIL SUB-PAGE ---
+           KEY FIX: position: fixed with its own overflow-y: auto lets this page
+           scroll independently even though body has overflow: hidden.
+           The -webkit-overflow-scrolling enables iOS momentum scrolling. */
+        .sub-page {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: #000;
+            z-index: 1000;
+            padding: 60px;
+            /* FIXED: box-sizing prevents padding from causing horizontal overflow */
+            box-sizing: border-box;
+            overflow-y: auto;
+            /* FIXED: iOS momentum scrolling */
+            -webkit-overflow-scrolling: touch;
+        }
+
+        .back-btn {
+            color: var(--white);
+            opacity: 0.7;
+            cursor: pointer;
+            text-transform: uppercase;
+            font-size: 1.1rem;
+            margin-bottom: 40px;
+            display: inline-block;
+            letter-spacing: 3px;
+            font-weight: 600;
+        }
+
         .back-btn:hover { opacity: 1; }
-        
-        .content-card, .practice-card { border: 1px solid var(--white); background: var(--card-bg); padding: 40px; border-radius: 15px; margin-bottom: 30px; max-width: 900px; }
-        .card-label { text-transform: uppercase; color: var(--white); margin: 0 0 20px 0; letter-spacing: 4px; font-size: 1.2rem; border-bottom: 1px solid rgba(255,255,255,0.2); display: inline-block; padding-bottom: 5px; }
-        
+
+        .content-card,
+        .practice-card {
+            border: 1px solid var(--white);
+            background: var(--card-bg);
+            padding: 40px;
+            border-radius: 15px;
+            margin-bottom: 30px;
+            max-width: 900px;
+            box-sizing: border-box;
+        }
+
+        .card-label {
+            text-transform: uppercase;
+            color: var(--white);
+            margin: 0 0 20px 0;
+            letter-spacing: 4px;
+            font-size: 1.2rem;
+            border-bottom: 1px solid rgba(255,255,255,0.2);
+            display: inline-block;
+            padding-bottom: 5px;
+        }
+
         /* Spotify Placeholder */
-        .spotify-container { 
-            margin-top: 20px; 
-            border-radius: 12px; 
-            border: 1px dashed rgba(255,255,255,0.3); 
+        .spotify-container {
+            margin-top: 20px;
+            border-radius: 12px;
+            border: 1px dashed rgba(255,255,255,0.3);
             min-height: 152px;
-            max-width: 900px; 
+            max-width: 900px;
             display: flex;
             align-items: center;
             justify-content: center;
@@ -109,28 +243,83 @@
             font-size: 0.9rem;
             text-transform: uppercase;
             letter-spacing: 2px;
+            box-sizing: border-box;
         }
 
-        .btn { background: none; border: 2px solid white; color: white; padding: 22px 65px; cursor: pointer; letter-spacing: 5px; transition: 0.4s; font-size: 1.3rem; text-transform: uppercase; }
+        /* FIXED: type="button" added in HTML; button styles unchanged */
+        .btn {
+            background: none;
+            border: 2px solid white;
+            color: white;
+            padding: 22px 65px;
+            cursor: pointer;
+            letter-spacing: 5px;
+            transition: 0.4s;
+            font-size: 1.3rem;
+            text-transform: uppercase;
+            font-family: 'Inter', sans-serif;
+        }
+
         .btn:hover { background: white; color: black; }
 
+        /* --- RESPONSIVE --- */
         @media (max-width: 900px) {
-            h1 { font-size: 3rem; }
-            .grid-container { grid-template-columns: 1fr; }
-            .tile { width: 80vw; }
+            h1 {
+                font-size: 3rem;
+                letter-spacing: 3px;
+            }
+
+            .greek-word { font-size: 2.5rem; }
+            .definition-text { font-size: 1.3rem; }
+
+            .grid-container {
+                grid-template-columns: 1fr;
+                grid-gap: 20px;
+            }
+
+            /* FIXED: tiles go full width on mobile */
+            .tile {
+                width: 80vw;
+                max-width: 400px;
+            }
+
+            .sub-page {
+                padding: 30px 20px;
+            }
+
+            .content-card,
+            .practice-card {
+                padding: 25px 20px;
+            }
+
+            .btn {
+                padding: 16px 40px;
+                font-size: 1rem;
+            }
+        }
+
+        @media (max-width: 480px) {
+            h1 { font-size: 2.2rem; }
+            .tile h3 { font-size: 1.8rem; }
+            .def-section { padding: 0 20px; }
         }
     </style>
 </head>
 <body>
 
+    <!-- HOME SCREEN -->
     <div id="homescreen" class="page">
         <h1>The Upper Room Invitation</h1>
-        <button class="btn" onclick="document.body.classList.add('active-main')">Enter into Union</button>
+        <!-- FIXED: type="button" for proper accessibility -->
+        <button type="button" class="btn" onclick="document.body.classList.add('active-main')">
+            Enter into Union
+        </button>
     </div>
 
+    <!-- MAIN PAGE -->
     <div id="main-page" class="page">
         <div class="intersection-glow"></div>
-        
+
         <div class="def-section top-def">
             <div class="greek-word">Love</div>
             <p class="definition-text">Placeholder 1</p>
@@ -138,28 +327,47 @@
 
         <div class="grid-container">
             <!-- Row 1 -->
-            <div class="tile" onclick="openPage('Father', 'Placeholder 2', 'Placeholder 3', '')"><h3>Father</h3><p>Placeholder 4</p></div>
-            <div class="tile" onclick="openPage('Son', 'Placeholder 5', 'Placeholder 6', '')"><h3>Son</h3><p>Placeholder 7</p></div>
-            <div class="tile" onclick="openPage('Spirit', 'Placeholder 8', 'Placeholder 9', '')"><h3>Spirit</h3><p>Placeholder 10</p></div>
+            <div class="tile" onclick="openPage('Father', 'Placeholder 2', 'Placeholder 3', '')">
+                <h3>Father</h3><p>Placeholder 4</p>
+            </div>
+            <div class="tile" onclick="openPage('Son', 'Placeholder 5', 'Placeholder 6', '')">
+                <h3>Son</h3><p>Placeholder 7</p>
+            </div>
+            <div class="tile" onclick="openPage('Spirit', 'Placeholder 8', 'Placeholder 9', '')">
+                <h3>Spirit</h3><p>Placeholder 10</p>
+            </div>
             <!-- Row 2 -->
-            <div class="tile" onclick="openPage('Father', 'Placeholder 11', 'Placeholder 12', '')"><h3>Father</h3><p>Placeholder 13</p></div>
-            <div class="tile" onclick="openPage('Son', 'Placeholder 14', 'Placeholder 15', '')"><h3>Son</h3><p>Placeholder 16</p></div>
-            <div class="tile" onclick="openPage('Spirit', 'Placeholder 17', 'Placeholder 18', '')"><h3>Spirit</h3><p>Placeholder 19</p></div>
+            <div class="tile" onclick="openPage('Father', 'Placeholder 11', 'Placeholder 12', '')">
+                <h3>Father</h3><p>Placeholder 13</p>
+            </div>
+            <div class="tile" onclick="openPage('Son', 'Placeholder 14', 'Placeholder 15', '')">
+                <h3>Son</h3><p>Placeholder 16</p>
+            </div>
+            <div class="tile" onclick="openPage('Spirit', 'Placeholder 17', 'Placeholder 18', '')">
+                <h3>Spirit</h3><p>Placeholder 19</p>
+            </div>
         </div>
 
         <div class="def-section bottom-def">
             <div class="greek-word">Obey</div>
             <p class="definition-text">Placeholder 20</p>
         </div>
-        
-        <button class="btn" style="margin-top: 30px; border-color: rgba(255,255,255,0.4); font-size: 0.9rem; padding: 12px 30px;" onclick="document.body.classList.remove('active-main')">Return Home</button>
+
+        <button type="button" class="btn"
+            style="margin-top: 30px; border-color: rgba(255,255,255,0.4); font-size: 0.9rem; padding: 12px 30px;"
+            onclick="document.body.classList.remove('active-main')">
+            Return Home
+        </button>
     </div>
 
+    <!-- DETAIL SUB-PAGE -->
     <div id="detail-page" class="sub-page">
         <div class="back-btn" onclick="closePage()">← Back to Union</div>
-        
-        <h2 id="detail-title" style="font-family: 'Playfair Display'; font-size: 4rem; color: var(--white); margin-bottom: 40px;"></h2>
-        
+
+        <h2 id="detail-title"
+            style="font-family: 'Playfair Display', serif; font-size: 4rem; color: var(--white); margin-bottom: 40px;">
+        </h2>
+
         <div class="content-card">
             <div class="card-label">Placeholder 21</div>
             <div id="detail-text" style="line-height: 1.8; color: #ffffff; font-size: 1.4rem;"></div>
@@ -178,24 +386,37 @@
     <script>
         function openPage(title, content, practice, spotifyUrl) {
             document.getElementById('detail-title').innerText = title;
-            document.getElementById('detail-text').innerText = content;
+            document.getElementById('detail-text').innerText  = content;
             document.getElementById('practice-text').innerText = practice;
-            
+
             const spotifySlot = document.getElementById('spotify-slot');
-            if(spotifyUrl && spotifyUrl.trim() !== "") {
-                spotifySlot.innerHTML = `<iframe style="border-radius:12px" src="${spotifyUrl}" width="100%" height="152" frameBorder="0" allowfullscreen="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe>`;
-                spotifySlot.style.border = "none";
+            if (spotifyUrl && spotifyUrl.trim() !== '') {
+                spotifySlot.innerHTML = `<iframe
+                    style="border-radius:12px"
+                    src="${spotifyUrl}"
+                    width="100%"
+                    height="152"
+                    frameBorder="0"
+                    allowfullscreen=""
+                    allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture"
+                    loading="lazy">
+                </iframe>`;
+                spotifySlot.style.border = 'none';
             } else {
                 spotifySlot.innerHTML = 'Spotify Placeholder (Link Not Added)';
-                spotifySlot.style.border = "1px dashed rgba(255,255,255,0.3)";
+                spotifySlot.style.border = '1px dashed rgba(255,255,255,0.3)';
             }
 
-            document.getElementById('detail-page').style.display = 'block';
+            // Scroll detail page back to top each time it opens
+            const detailPage = document.getElementById('detail-page');
+            detailPage.scrollTop = 0;
+            detailPage.style.display = 'block';
         }
 
         function closePage() {
             document.getElementById('detail-page').style.display = 'none';
         }
     </script>
+
 </body>
 </html>
