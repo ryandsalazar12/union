@@ -455,6 +455,7 @@
         function goHome() {
             document.getElementById('main-page').classList.remove('visible');
             document.getElementById('homescreen').classList.add('visible');
+            document.getElementById('main-page').scrollTop = 0;
         }
 
         function openDetail(title, content, practice, spotifyUrl) {
@@ -479,8 +480,8 @@
                 spotifySlot.style.border = '1px dashed rgba(255,255,255,0.3)';
             }
 
-            const detail = document.getElementById('detail-page').scrollTop = 0;
-            //detail.scrollTop = 0;
+            const detail = document.getElementById('detail-page')
+            detail.scrollTop = 0;
             detail.classList.add('visible');
             //
             //setTimeout(function() { detail.scrollTop = 0; }, 50);
