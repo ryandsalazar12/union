@@ -455,7 +455,9 @@
         function goHome() {
             document.getElementById('main-page').classList.remove('visible');
             document.getElementById('homescreen').classList.add('visible');
-            document.getElementById('main-page').scrollTop = 0;
+            setTimeout(function() { 
+                    document.getElementById('main-page').scrollTop = 0; 
+                }, 600); 
         }
 
         function openDetail(title, content, practice, spotifyUrl) {
