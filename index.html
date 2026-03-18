@@ -479,11 +479,11 @@
                 spotifySlot.style.border = '1px dashed rgba(255,255,255,0.3)';
             }
 
-            const detail = document.getElementById('detail-page');
+            const detail = document.getElementById('detail-page').scrollTop = 0;
             //detail.scrollTop = 0;
             detail.classList.add('visible');
             
-            setTimeout(function() { detail.scrollTop = 0; }, 50);
+            //setTimeout(function() { detail.scrollTop = 0; }, 50);
         }
 
         function closeDetail() {
