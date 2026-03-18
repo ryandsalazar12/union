@@ -40,6 +40,7 @@
             width: 100%; height: 100%;
             opacity: 0;
             visibility: hidden;
+            z-index: 1; /* hidden pages sit below everything */
             transition: opacity var(--fade-speed) ease, visibility var(--fade-speed) ease;
             overflow-y: auto;
             overflow-x: hidden;
@@ -48,13 +49,13 @@
 
         .fade-page.visible {
             opacity: 1;
+            z-index: 20; /* visible page always wins z-index */
             visibility: visible;
         }
 
         /* --- PAGE 1: HOMESCREEN --- */
         #homescreen {
             background: #000;
-            z-index: 10;
             display: flex;
             flex-direction: column;
             align-items: center;
@@ -63,11 +64,11 @@
             /* Homescreen starts visible */
             opacity: 1;
             visibility: visible;
+            z-index: 20;
         }
 
         /* --- PAGE 2: MAIN LANDING PAGE --- */
         #main-page {
-            z-index: 5;
             background: linear-gradient(to bottom,
                 var(--white)    0%,
                 #f0f0f0        15%,
@@ -81,7 +82,6 @@
         /* --- PAGE 3: DETAIL PAGE --- */
         #detail-page {
             background: #000;
-            z-index: 100;
             padding: 60px;
         }
 
