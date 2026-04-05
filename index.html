@@ -468,6 +468,9 @@ text-shadow:
         <div class="practice-card">
             <div class="card-label">Imaginative Prayer Exercise</div>
             <div id="practice-text" class="card-body"></div>
+
+			<audio id="practice-audio" controls style="width: 100%; margin-top: 15px;">
+</audio>
         </div>
 
         <div id="spotify-slot" class="spotify-container">
@@ -505,13 +508,13 @@ text-shadow:
             document.getElementById('detail-text').innerHTML   = content;
             document.getElementById('practice-text').innerHTML = practice;
 
-            const audio = document.querySelector('#practice-text audio'); // 2026_04_04
+            const audio = document.getElementById('practice-audio');
 
-                if (audio) { // 2026_04_04
-                    audio.setAttribute('playsinline', '');
-                    audio.load();
-                }
-
+				if (audio) {
+				    audio.pause();
+				    audio.src = "john-13.m4a"; // or dynamic later
+				    audio.load();
+				}
             const spotifySlot = document.getElementById('spotify-slot');
             if (spotifyUrl && spotifyUrl.trim() !== '') {
                 spotifySlot.innerHTML = `<iframe
