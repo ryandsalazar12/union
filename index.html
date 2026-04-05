@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -25,6 +26,7 @@
             background-color: var(--bg-dark);
             color: var(--white);
             overflow: hidden; /* body never scrolls — each page scrolls itself */
+isolation: isolate; 
         }
 
         /* ============================================================
@@ -45,6 +47,7 @@
             overflow-y: auto;
             overflow-x: hidden;
             -webkit-overflow-scrolling: touch;
+background: transparent; 
         }
 
         .fade-page.visible {
@@ -158,13 +161,25 @@
             margin-bottom: 15px;
         }
 
-        .definition-text {
-            font-size: 1.8rem;
-            line-height: 1.5;
-            font-weight: 300;
-            margin: 0;
-        }
+    .definition-text {
+    font-size: 0.75rem;
+    line-height: 1.5;
+    margin: 0;
+    font-weight: 600;
+    display: inline-block;
+}
 
+.top-def .definition-text {
+    color: #000;
+    text-shadow: none;
+}
+
+.bottom-def .definition-text {
+    color: #fff;
+text-shadow: 
+0 2px 8px rgba(0,0,0,0.8), 
+0 0 15px rgba(255,255,255,0.6);
+}
         /* ============================================================
            MAIN PAGE — TILE GRID
         ============================================================ */
@@ -177,6 +192,13 @@
             width: 100%;
             max-width: 1000px;
         }
+
+.grid-divider {
+    grid-column: 1 / -1; /* Spans from the first to the last column */
+    text-align: center;
+    padding: 20px 0;
+    width: 100%;
+}
 
         .tile {
             width: 100%;
@@ -259,7 +281,8 @@
             color: var(--white);
             margin: 0 0 20px 0;
             letter-spacing: 4px;
-            font-size: 1.2rem;
+            font-size: 1.5rem;
+	    font-weight: bold;
             border-bottom: 1px solid rgba(255,255,255,0.2);
             display: inline-block;
             padding-bottom: 5px;
@@ -268,7 +291,7 @@
         .card-body {
             line-height: 1.8;
             color: #ffffff;
-            font-size: 1.4rem;
+            font-size: 1.0rem;
         }
 
         .spotify-container {
@@ -287,6 +310,12 @@
             letter-spacing: 2px;
         }
 
+.detail-return {
+    width: 100%;
+    max-width: 900px;
+    margin: 50px auto 80px auto;
+    text-align: center;
+}
         /* ============================================================
            SHARED BUTTON
         ============================================================ */
@@ -322,7 +351,7 @@
             }
 
             .greek-word      { font-size: 2.5rem; }
-            .definition-text { font-size: 1.3rem; }
+            .definition-text { font-size: 0.90rem; }
 
             .grid-container {
                 grid-template-columns: 1fr;
@@ -378,38 +407,43 @@
             <div class="intersection-glow"></div>
 
             <div class="def-section top-def">
-                <div class="greek-word">Love</div>
-                <p class="definition-text">Placeholder 1</p>
+                <div class="greek-word">Love / Agapaō </div>
+                <p class="top-def definition-text">A selfless, sacrificial, and volitional love.<br>
+        A deliberate choice of the will to seek the highest good of another.
             </div>
 
             <div class="grid-container">
                 <!-- Row 1 -->
-                <div class="tile" onclick="openDetail('Father', 'Placeholder 2', 'Placeholder 3', '')">
-                    <h3>Father</h3><p>Placeholder 4</p>
+                <div class="tile" onclick="openDetail('Father', 'John 17:1-19', 'After Jesus said this, he looked toward heaven and prayed: “Father, the hour has come. Glorify your Son, that your Son may glorify you. 2 For you granted him authority over all people that he might give eternal life to all those you have given him. 3 Now this is eternal life: that they know you, the only true God, and Jesus Christ, whom you have sent. 4 I have brought you glory on earth by finishing the work you gave me to do. 5 And now, Father, glorify me in your presence with the glory I had with you before the world began.<br><br>Jesus Prays for His Disciples<br><br>6 “I have revealed you to those whom you gave me out of the world. They were yours; you gave them to me and they have obeyed your word. 7 Now they know that everything you have given me comes from you. 8 For I gave them the words you gave me and they accepted them. They knew with certainty that I came from you, and they believed that you sent me. 9 I pray for them. I am not praying for the world, but for those you have given me, for they are yours. 10 All I have is yours, and all you have is mine. And glory has come to me through them. 11 I will remain in the world no longer, but they are still in the world, and I am coming to you. Holy Father, protect them by the power of your name, the name you gave me, so that they may be one as we are one. 12 While I was with them, I protected them and kept them safe by that name you gave me. None has been lost except the one doomed to destruction so that Scripture would be fulfilled.<br><br>13 “I am coming to you now, but I say these things while I am still in the world, so that they may have the full measure of my joy within them. 14 I have given them your word and the world has hated them, for they are not of the world any more than I am of the world. 15 My prayer is not that you take them out of the world but that you protect them from the evil one. 16 They are not of the world, even as I am not of it. 17 Sanctify them by the truth; your word is truth. 18 As you sent me into the world, I have sent them into the world. 19 For them I sanctify myself, that they too may be truly sanctified.', 'Stay Tuned!', 'https://open.spotify.com/embed/playlist/4MfDuQt56x8mAPvFGVX1Yi?si=e5RPO7W_Rm2LeZla9DDpNA&pi=Ll0nYHnHQ8ao6')">
+    <h3>Father</h3>
+    <p>John 17:1-19</p>
+</div>
+                <div class="tile" onclick="openDetail('Son', 'John 13:31-39', 'Jesus Predicts Peter\'s Denial<br><br>31 When he was gone, Jesus said, “Now the Son of Man is glorified and God is glorified in him. 32 If God is glorified in him, God will glorify the Son in himself, and will glorify him at once.<br><br>33 “My children, I will be with you only a little longer. You will look for me, and just as I told the Jews, so I tell you now: Where I am going, you cannot come.<br><br>34 “A new command I give you: Love one another. As I have loved you, so you must love one another. 35 By this everyone will know that you are my disciples, if you love one another.”<br><br>36 Simon Peter asked him, “Lord, where are you going?”<br><br>Jesus replied, “Where I am going, you cannot follow now, but you will follow later.”<br><br>37 Peter asked, “Lord, why can’t I follow you now? I will lay down my life for you.”<br><br>38 Then Jesus answered, “Will you really lay down your life for me? Very truly I tell you, before the rooster crows, you will disown me three times!', 'Close Your Eyes.<br><br>Ask Jesus to show you sitting in the Upper Room.<br><br>Take note of what you see.<br><br>Ask Jesus to show you Himself as you listen to the audio of John 13:31-38 below:<br><br><audio controls playsinline style=&quot;width: 100%;&quot;><source src=&quot;john-13.m4a&quot; type=&quot;audio/mpeg&quot;>Your browser does not support the audio element.</audio>', 'https://open.spotify.com/embed/playlist/2JrkMYa7ekonBwpwhGTtlb?si=mmxsPsHhR9W0gE1NJXnCBg&pi=w9gAxiZETPu-w')">
+    <h3>Son</h3>
+     <p>John 13:31-38</p>
                 </div>
-                <div class="tile" onclick="openDetail('Son', 'Placeholder 5', 'Placeholder 6', '')">
-                    <h3>Son</h3><p>Placeholder 7</p>
+                <div class="tile" onclick="openDetail('Spirit', 'John 14:15-31', 'Placeholder 8', 'Stay Tuned!', 'https://open.spotify.com/embed/playlist/12HUB7lInKiek9Jfv80QrY?si=OizUnb6wRlqR52JgWiN8Sw')">
+                    <h3>Spirit</h3><p>John 14:15-31</p>
                 </div>
-                <div class="tile" onclick="openDetail('Spirit', 'Placeholder 8', 'Placeholder 9', '')">
-                    <h3>Spirit</h3><p>Placeholder 10</p>
-                </div>
+
+  <div class="grid-divider">
+                <div class="greek-word">Obey / Tēreō </div>
+                <p class=".bottom-def definition-text"><br>To guard, watch over, or preserve from loss.<br> Keeping one’s eye upon a treasure to protect its eternal value.</p>
+            </div>
+
                 <!-- Row 2 -->
-                <div class="tile" onclick="openDetail('Father', 'Placeholder 11', 'Placeholder 12', '')">
-                    <h3>Father</h3><p>Placeholder 13</p>
+                <div class="tile" onclick="openDetail('Father', 'John 17:20-26, 'Placeholder 11', 'Stay Tuned!', 'https://open.spotify.com/embed/playlist/22ygIaXDse2azPyWzi0JBU?si=hGGtnM7dT2mjdSxdQWmZSQ&pi=hI7K2DDSRPaoP')">
+                    <h3>Father</h3><p>John 17:20-26</p>
                 </div>
-                <div class="tile" onclick="openDetail('Son', 'Placeholder 14', 'Placeholder 15', '')">
-                    <h3>Son</h3><p>Placeholder 16</p>
+                <div class="tile" onclick="openDetail('Son', 'John 15:1-17', 'Placeholder 14', 'Stay Tuned!', 'https://open.spotify.com/embed/playlist/5eT6JcnHawNDfYCzCNNTZ6?si=18S6ezDYSk-HuXKXMHqWIw&pi=LxNx88mnQSKX6')">
+                    <h3>Son</h3><p>John 15:1-17</p>
                 </div>
-                <div class="tile" onclick="openDetail('Spirit', 'Placeholder 17', 'Placeholder 18', '')">
-                    <h3>Spirit</h3><p>Placeholder 19</p>
+                <div class="tile" onclick="openDetail('Spirit', 'John 15:26-16:15', 'Placeholder 17', 'Stay Tuned!', 'https://open.spotify.com/embed/playlist/7tvkz23x8w1DF5HrP8aal6?si=0FU5Ge6RSZ-spqdwSE562w&pi=Vb6oiPVWTwy9L')">
+                    <h3>Spirit</h3><p>John 15:26-16:15</p>
                 </div>
             </div>
 
-            <div class="def-section bottom-def">
-                <div class="greek-word">Obey</div>
-                <p class="definition-text">Placeholder 20</p>
-            </div>
-
+            
             <button type="button" class="btn btn-secondary" onclick="goHome()">
                 Return Home
             </button>
@@ -422,23 +456,28 @@
          Independent scroll context, z-index: 100.
     ============================================================ -->
     <div id="detail-page" class="fade-page">
-        <div class="back-btn" onclick="closeDetail()">← Back to Union</div>
+        <div class="back-btn" onclick="closeDetail()">← Back </div>
 
         <h2 id="detail-title"></h2>
 
         <div class="content-card">
-            <div class="card-label">Placeholder 21</div>
+            <div class="card-label">John 13:1</div>
             <div id="detail-text" class="card-body"></div>
         </div>
 
         <div class="practice-card">
-            <div class="card-label">Placeholder 22</div>
+            <div class="card-label">Imaginative Prayer Exercise</div>
             <div id="practice-text" class="card-body"></div>
         </div>
 
         <div id="spotify-slot" class="spotify-container">
             Spotify Placeholder (Link Not Added)
         </div>
+<div class="detail-return">
+    <button type="button" class="btn btn-secondary" onclick="closeDetail()">
+        Return Home
+    </button>
+</div>
     </div><!-- /#detail-page -->
 
     <script>
@@ -455,15 +494,23 @@
         function goHome() {
             document.getElementById('main-page').classList.remove('visible');
             document.getElementById('homescreen').classList.add('visible');
-            setTimeout(function() { 
-                    document.getElementById('main-page').scrollTop = 0; 
-                }, 600); 
+            setTimeout(function() {
+                    document.getElementById('main-page').scrollTop = 0;
+                }, 600);
         }
 
-        function openDetail(title, content, practice, spotifyUrl) {
+        function openDetail(title, passageLabel, content, practice, spotifyUrl) {
             document.getElementById('detail-title').innerText  = title;
-            document.getElementById('detail-text').innerText   = content;
-            document.getElementById('practice-text').innerText = practice;
+            document.querySelector('.content-card .card-label').innerText = passageLabel;
+            document.getElementById('detail-text').innerHTML   = content;
+            document.getElementById('practice-text').innerHTML = practice;
+
+            const audio = document.querySelector('#practice-text audio'); // 2026_04_04
+
+                if (audio) { // 2026_04_04
+                    audio.setAttribute('playsinline', '');
+                    audio.load();
+                }
 
             const spotifySlot = document.getElementById('spotify-slot');
             if (spotifyUrl && spotifyUrl.trim() !== '') {
